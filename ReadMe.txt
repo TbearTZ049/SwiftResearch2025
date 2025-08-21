@@ -34,8 +34,15 @@ Label Bursts with Classifications
 
 Create Image Processing and Machine Learning Labels
 
-    1.Processing Images and Create ML by running proccess_images file
+    1.Processing Images and Create ML by running Proccess_Images.py file
     2.ImageRecognition will create a machine learning algorithm to classify
     3.Generate_ml_to_csv creates a csv that labels bursts based off machine learning
+
+
+Pulse Locations and Painting Boxes 
+    1. KmeanLocation.py because all of your location results are in a csv you will use this file
+        to eliminate some of the boxes. 
+    2. Then run PaintBoxes.py to create images with the narrowd down boxes
+        results will be in the. 
 
 

@@ -3,9 +3,9 @@ import pandas as pd
 from PIL import Image, ImageDraw
 
 # Input/Output paths
-results_file = "/Users/catermurawski/Desktop/SwiftDataRework/PulseLocation_results.csv"
-image_folder = "/Users/catermurawski/Desktop/Swift-Research/BurstPhotos"  # Path where the PNGs are stored
-output_folder = "/Users/catermurawski/Desktop/SwiftDataRework/Boxes"  # Folder to save boxed images
+results_file = "ClassifiedBursts/Pulse_Location_Narrowed.csv"
+image_folder = "BurstPhotos"  # Path where the PNGs are stored
+output_folder = "BurstBoxes"  # Folder to save boxed images
 
 # Create output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)
