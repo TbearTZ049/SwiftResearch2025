@@ -18,7 +18,7 @@ df = pd.read_csv(input_csv)
 df = df[pd.notna(df[label_column])]
 
 # Separate features and labels
-labels = df[label_column].values
+labels = df[label_column].to_numpy()
 features = df.drop(columns=[
     'Prop_Verify', '95%_Verify', '99%_Verify', 'Burst_PNG', 'Burst_Name'
 ]).values  # These are the image pixels
