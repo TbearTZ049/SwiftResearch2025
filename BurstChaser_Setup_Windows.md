@@ -1,20 +1,6 @@
 # Burst Chaser — Code Reproduction & Setup Guide (Windows)
 
-*This documents the steps we used to get Carter Murawski's Burst Chaser pipeline running and reproducing its baseline result. I set it up on macOS; this version is written for Windows and flags the spots where Windows differs — plus the two non-obvious blockers you'll almost certainly hit, each with a one-line fix.*
-
----
-
-## Goal
-
-By the end you'll have:
-
-- the project repo cloned to your machine,
-- a working Python environment named `burstchaser`,
-- the image-ML pipeline reproduced and confirmed by a specific checkpoint result.
-
-Two things will try to stop you along the way, and this guide fixes both: an **Anaconda download rate-limit (HTTP 429)** during the install, and a **pandas 3.0 error** when training the model.
-
----
+*This documents the steps we used to get Carter Murawski's Burst Chaser pipeline running and reproducing its baseline result. I set it up on macOS; this version is written for Windows and flags the spots where Windows differs —*
 
 ## 0. Install the tools
 
@@ -23,7 +9,7 @@ Download the Windows 64-bit installer from the official Miniconda page (search "
 - **Windows note:** After installing, open **"Anaconda Prompt (miniconda3)"** from the Start Menu and run all `conda` commands *there*. That shortcut comes pre-configured, so `conda` and `conda activate` work immediately. Plain PowerShell or CMD often won't activate environments until extra setup (see Troubleshooting), so save yourself the headache and use the Anaconda Prompt.
 
 **Git for Windows** — version control.
-Download from <https://git-scm.com> and install with defaults. Besides `git`, this gives you two useful bonuses: **Git Bash** (a Unix-style shell where most Mac/Linux commands work exactly as written) and **Git Credential Manager** (handles GitHub login through your browser — no SSH keys to set up).
+If you'd like you can download from <https://git-scm.com> and install with defaults which besides `git`, will give you two useful bonuses: **Git Bash** (Unix-style shell where most Mac/Linux commands work exactly as written) and **Git Credential Manager** (handles GitHub login through your browser — no SSH keys to set up).
 
 **VS Code** — editor.
 Install from <https://code.visualstudio.com> and add the **Python** and **Jupyter** extensions (both by Microsoft).
@@ -35,7 +21,7 @@ Install from <https://code.visualstudio.com> and add the **Python** and **Jupyte
 
 ---
 
-## 1. Tell git who you are
+## 1. Identifiers 
 
 In Git Bash (or Anaconda Prompt):
 
@@ -44,7 +30,7 @@ git config --global user.name "Your Name"
 git config --global user.email "you@youremail.com"
 ```
 
-Use the email tied to your GitHub account. This stamps your commits with your identity — git won't let you commit without it.
+Use the email tied to your GitHub account. This stamps your commits with your identity.
 
 ---
 
@@ -57,11 +43,9 @@ git clone https://github.com/TbearTZ049/SwiftResearch2025.git
 cd SwiftResearch2025
 ```
 
-> Coordinate with me on whether you'd rather make your own fork or work off mine. For just getting a running copy, cloning mine is the fastest path.
+**Note:** the repo is ~79 MB because it stores ~2,800 light-curve images. 
 
-**Note:** the repo is ~79 MB because it stores ~2,800 light-curve images. The clone takes a moment — that's normal.
-
-The first time you `git push`, a browser window will pop up to log into GitHub (via Git Credential Manager). That's expected on Windows and simpler than the Mac SSH route.
+The first time you `git push`, a browser window will pop up to log into GitHub (via Git Credential Manager).
 
 ---
 
@@ -87,7 +71,7 @@ https://repo.anaconda.com/pkgs/main/...
 
 **Why it happens:** conda defaults to Anaconda's commercial package repo, which now rate-limits and requires accepting their terms of service.
 
-**The fix:** switch to **conda-forge**, the free community-run channel (it has full Windows builds of everything we need). Run:
+**The fix:** switch to **conda-forge**, the free community-run channel (it has full Windows builds of everything). Run:
 
 ```bash
 conda config --add channels conda-forge
@@ -112,13 +96,13 @@ conda install --override-channels -c conda-forge numpy pandas scipy matplotlib s
 ```
 
 What they're for:
-- **pandas / numpy** — tables and arrays; used everywhere.
+- **pandas / numpy** — tables and arrays.
 - **scikit-learn** — the Random Forest classifier (and the K-means used in the pulse-location track).
 - **scikit-image / pillow** — reading and shrinking the light-curve images.
 - **matplotlib / astropy** — plotting and astronomy data handling (needed for the next phase of the project).
 - **jupyter / ipykernel** — notebook support inside VS Code.
 
-This pulls in a long list of dependency packages — that's expected and harmless.
+This pulls in a long list of dependency packages.
 
 ---
 
@@ -156,7 +140,7 @@ Change `.values` to `.to_numpy()`:
 labels = df[label_column].to_numpy()
 ```
 
-`.to_numpy()` always returns a plain NumPy array regardless of the column's storage backend, which scikit-learn handles without complaint. This fix is platform-independent — identical on Windows and Mac.
+`.to_numpy()` always returns a plain NumPy array regardless of the column's storage backend, which scikit-learn handles without issue. This fix is platform-independent and will be identical on Windows and Mac.
 
 ---
 
@@ -182,11 +166,11 @@ What each one does:
 
 **Ignore `train_model.py`** — it's a leftover that reads a file nothing produces. The real trainer is `ImageRecognition.py`.
 
-**About `ReadDataExport.py`:** it's listed as step 1 in the original README, but it needs the raw Zooniverse classification export, which isn't in the repo. You don't need it to reproduce anything — every script above runs from CSVs that are already committed. (Getting that export is a separate task we're handling.)
+**About `ReadDataExport.py`:** it's listed as step 1 in the original README, but it needs the raw Zooniverse classification export, which isn't in the repo. You don't need it to reproduce anything — every script above runs from CSVs that are already committed. 
 
 ---
 
-## 7. Confirm success
+## 7. Confirm 
 
 You've reproduced it correctly if you see:
 
@@ -207,7 +191,7 @@ From the final **GoldenSampleCheck.py**:
 
 …with every mismatch showing `ML_Verify = Simple`.
 
-**What these numbers mean** (so they make sense): the model scores 93% on a random split of the *training* bursts but only **14/46 ≈ 30%** on the expert golden sample. It learns to label almost everything "Simple," and the golden sample is dominated by the "Other" / multi-pulse class it can't recognize. That **30% is the honest baseline**, not the 93%. Reproducing these exact numbers means your environment matches mine and we're working from the same starting point.
+**What these numbers mean** (so they make sense): the model scores 93% on a random split of the *training* bursts but only **14/46 ≈ 30%** on the expert golden sample. It learns to label almost everything "Simple," and the golden sample is dominated by the "Other" / multi-pulse class it can't recognize. That **30% is the baseline**, not the 93%. Reproducing these exact numbers means your environment matches and is working from the same starting point.
 
 ---
 
@@ -232,5 +216,3 @@ That command isn't using conda-forge. Add `--override-channels -c conda-forge` t
 Same pandas-3.0 Arrow cause as Blocker #2. Find the offending `.values` and replace it with `.to_numpy()`.
 
 ---
-
-*Ping me on any step. Once you hit the 14/46 checkpoint, you're fully set up and we're standing on the same baseline.*
