@@ -23,7 +23,7 @@ Install from <https://code.visualstudio.com> and add the **Python** and **Jupyte
 
 ---
 
-## 2. Get the repo
+## 1. Get the repo
 
 Recommended: clone **my fork**, which already includes the model-training fix from Step 5 (so you can skip that edit).
 
@@ -38,7 +38,7 @@ The first time you `git push`, a browser window will pop up to log into GitHub (
 
 ---
 
-## 3. Create the Python environment
+## 2. Create the Python environment
 
 In **Anaconda Prompt**:
 
@@ -95,7 +95,7 @@ This pulls in a long list of dependency packages.
 
 ---
 
-## 4. Register the environment with Jupyter / VS Code
+## 3. Register the environment with Jupyter / VS Code
 
 ```bash
 python -m ipykernel install --user --name burstchaser --display-name "Python (burstchaser)"
@@ -105,7 +105,7 @@ This makes `burstchaser` selectable as a kernel inside VS Code notebooks. In VS 
 
 ---
 
-## 5. Blocker #2 — the pandas 3.0 training error
+## 4. Blocker #2 — the pandas 3.0 training error
 
 **If you cloned my fork, this is already fixed — skip to Step 6.** If you're working from a copy of the *original* repo, you'll hit this when you run `ImageRecognition.py`:
 
@@ -133,7 +133,7 @@ labels = df[label_column].to_numpy()
 
 ---
 
-## 6. Reproduce the pipeline
+## 5. Reproduce the pipeline
 
 Make sure you're in the repo folder with `(burstchaser)` active, then run these **in order**. (The forward-slash file paths inside the scripts work fine on Windows — Python normalizes them automatically.)
 
@@ -159,7 +159,7 @@ What each one does:
 
 ---
 
-## 7. Confirm 
+## 6. Confirm 
 
 You've reproduced it correctly if you see:
 
