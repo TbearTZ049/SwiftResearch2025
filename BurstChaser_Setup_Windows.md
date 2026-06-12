@@ -21,17 +21,6 @@ Install from <https://code.visualstudio.com> and add the **Python** and **Jupyte
 
 ---
 
-## 1. Identifiers 
-
-In Git Bash (or Anaconda Prompt):
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@youremail.com"
-```
-
-Use the email tied to your GitHub account. This stamps your commits with your identity.
-
 ---
 
 ## 2. Get the repo
