@@ -1,4 +1,4 @@
-# Burst Chaser v2
+## Burst Chaser v2
 
 This will be a guide on how use and recreate all data for burst chaser
 that was previously used by Carter Murawski. It will explain how to download the
