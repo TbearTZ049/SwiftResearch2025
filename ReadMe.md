@@ -35,7 +35,7 @@ Install from <https://code.visualstudio.com> and add the **Python** and **Jupyte
 ---
 
 ## Environment
-- conda env `burstchaser` (Python 3.11); rebuild with `conda env create -f environment.yml`. 
+- conda env `burstchaser` (Python 3.11); rebuild with `conda env create -f environment.yml` Not yet included WIP. 
 
 
 # Burst Chaser — Code Reproduction & Setup Guide
