@@ -260,7 +260,7 @@ Same pandas-3.0 Arrow cause as Blocker #2. Find the offending `.values` and repl
 
 
 
-
+# Carter Original instructions (incomplete) 
 
 Downloading Classifications CSV from Zooniverse 
 
