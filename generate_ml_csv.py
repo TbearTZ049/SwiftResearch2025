@@ -1,9 +1,18 @@
-import pandas as pd
-import numpy as np
-import pickle
+"""
+SUMMARY OF FILE:
+The file is responsible for generating the csv of ML
+model's predictiions. It Loads the preprocessed images and their
+labels, apply the training ML model to the given data set and
+saves the predictions in a new csv file.
+"""
 
+import pandas as pd
+import numpy as np # used for numerical calculations
+import pickle # used to load trained ML model
+
+# Subroutine to 
 def generate_ml_csv():
-    # Load the processed image data
+    # Load the processed image data for ClassifiedBursts
     processed_data = pd.read_csv("ClassifiedBursts/Image_Labels.csv")
 
     # Extract only the image features (drop label columns and metadata)
@@ -40,7 +49,7 @@ def generate_ml_csv():
     # Save updated CSV
     output_path = "MachineLearning/pulse_shape_freq_with_ml.csv"
     pulse_shape_df.to_csv(output_path, index=False)
-    print(f"✅ ML predictions added and saved to: {output_path}")
+    print(f"ML predictions added and saved to: {output_path}")
 
 if __name__ == "__main__":
     generate_ml_csv()

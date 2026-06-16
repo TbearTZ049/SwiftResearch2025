@@ -1,9 +1,16 @@
+"""
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
 Created on Fri Nov  8 20:23:55 2024
-
 @author: catermurawski
+
+SUMMARY OF FILE:
+This file is responsible for verifying the proportions of pulse shape
+classifications for each burst. It reads the PulseShapes.csv file, calculates
+the relative proportions of each classification category (Simple, Extended, 
+Other, Too Noisy), and determines if any category meets the criteria for 
+verification based on the highest proportion (> 70%) and confidence intervals 
+(95% and 99%). Also, checks for double category or no category cases. 
 """
 
 import pandas as pd
@@ -99,7 +106,6 @@ for idx, row in file.iterrows():
     # Assign to burst_results
     burst_results["Prop_Verify"] = prop_verify
 
-
     # Check if the burst's proportions fall in the 95% and 99% confidence intervals
     for category, stats in category_stats.items():
         std_dev = stats["std_dev"]
@@ -127,6 +133,4 @@ results_df = pd.DataFrame(results)
 
 # Save results to a CSV file
 results_df.to_csv(f'ClassifiedBursts/Verified_Prop_Freq.csv', index=True, header=True)
-
-
 print("Analysis complete. Results saved to CSV.")
